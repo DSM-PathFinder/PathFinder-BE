@@ -1,13 +1,98 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
+  moduleFormat = "cjs"
 }
 
 datasource db {
   provider = "mysql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  plan      String   @default("Free Plan")
+  bio       String?  @db.Text  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  roadmaps  Roadmap[]
+  notes     Note[]
+  likes     Like[]
+}
+
+model Roadmap {
+  id        String   @id @default(uuid())
+  title     String
+  goal      String   @db.Text
+  isPublic  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  weeks     Week[]
+  likes     Like[]
+}
+
+model Week {
+  id             String   @id @default(uuid())
+  weekNumber     Int
+  theme          String
+  description    String   @db.Text
+  estimatedHours Int      @default(0)
+
+  roadmap        Roadmap  @relation(fields: [roadmapId], references: [id], onDelete: Cascade)
+  roadmapId      String
+
+  tasks          Task[]
+  resources      Resource[]
+}
+
+model Task {
+  id        String  @id @default(uuid())
+  title     String
+  completed Boolean @default(false)
+
+  week      Week    @relation(fields: [weekId], references: [id], onDelete: Cascade)
+  weekId    String
+}
+
+model Resource {
+  id     String @id @default(uuid())
+  title  String
+  url    String @default("#")
+  type   String @default("doc") // video | article | doc
+
+  week   Week   @relation(fields: [weekId], references: [id], onDelete: Cascade)
+  weekId String
+}
+
+model Note {
+  id        String   @id @default(uuid())
+  title     String
+  content   String?  @db.LongText 
+  weekId    String?
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  roadmap   Roadmap  @relation(fields: [roadmapId], references: [id], onDelete: Cascade)
+  roadmapId String
+
+  @@unique([userId, roadmapId])
 }
