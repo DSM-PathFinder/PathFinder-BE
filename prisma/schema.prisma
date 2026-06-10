@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
   moduleFormat = "cjs"
 }
 
@@ -9,18 +9,20 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  name      String
-  plan      String   @default("Free Plan")
-  bio       String?  @db.Text  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(uuid())
+  email      String   @unique
+  password   String   @default("")
+  name       String
+  plan       String   @default("Free Plan")
+  bio        String?  @db.Text
+  provider   String   @default("local")   // google | github | local
+  providerId String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  roadmaps  Roadmap[]
-  notes     Note[]
-  likes     Like[]
+  roadmaps   Roadmap[]
+  notes      Note[]
+  likes      Like[]
 }
 
 model Roadmap {
@@ -65,7 +67,7 @@ model Resource {
   id     String @id @default(uuid())
   title  String
   url    String @default("#")
-  type   String @default("doc") // video | article | doc
+  type   String @default("doc")
 
   week   Week   @relation(fields: [weekId], references: [id], onDelete: Cascade)
   weekId String
@@ -74,7 +76,7 @@ model Resource {
 model Note {
   id        String   @id @default(uuid())
   title     String
-  content   String?  @db.LongText 
+  content   String?  @db.LongText
   weekId    String?
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
