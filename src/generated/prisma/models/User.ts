@@ -31,6 +31,8 @@ export type UserMinAggregateOutputType = {
   name: string | null
   plan: string | null
   bio: string | null
+  provider: string | null
+  providerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -42,6 +44,8 @@ export type UserMaxAggregateOutputType = {
   name: string | null
   plan: string | null
   bio: string | null
+  provider: string | null
+  providerId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,6 +57,8 @@ export type UserCountAggregateOutputType = {
   name: number
   plan: number
   bio: number
+  provider: number
+  providerId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -66,6 +72,8 @@ export type UserMinAggregateInputType = {
   name?: true
   plan?: true
   bio?: true
+  provider?: true
+  providerId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -77,6 +85,8 @@ export type UserMaxAggregateInputType = {
   name?: true
   plan?: true
   bio?: true
+  provider?: true
+  providerId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -88,6 +98,8 @@ export type UserCountAggregateInputType = {
   name?: true
   plan?: true
   bio?: true
+  provider?: true
+  providerId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -172,6 +184,8 @@ export type UserGroupByOutputType = {
   name: string
   plan: string
   bio: string | null
+  provider: string
+  providerId: string | null
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -204,6 +218,8 @@ export type UserWhereInput = {
   name?: Prisma.StringFilter<"User"> | string
   plan?: Prisma.StringFilter<"User"> | string
   bio?: Prisma.StringNullableFilter<"User"> | string | null
+  provider?: Prisma.StringFilter<"User"> | string
+  providerId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   roadmaps?: Prisma.RoadmapListRelationFilter
@@ -218,6 +234,8 @@ export type UserOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   roadmaps?: Prisma.RoadmapOrderByRelationAggregateInput
@@ -236,6 +254,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"User"> | string
   plan?: Prisma.StringFilter<"User"> | string
   bio?: Prisma.StringNullableFilter<"User"> | string | null
+  provider?: Prisma.StringFilter<"User"> | string
+  providerId?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   roadmaps?: Prisma.RoadmapListRelationFilter
@@ -250,6 +270,8 @@ export type UserOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -267,6 +289,8 @@ export type UserScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   plan?: Prisma.StringWithAggregatesFilter<"User"> | string
   bio?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  provider?: Prisma.StringWithAggregatesFilter<"User"> | string
+  providerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -274,10 +298,12 @@ export type UserScalarWhereWithAggregatesInput = {
 export type UserCreateInput = {
   id?: string
   email: string
-  password: string
+  password?: string
   name: string
   plan?: string
   bio?: string | null
+  provider?: string
+  providerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   roadmaps?: Prisma.RoadmapCreateNestedManyWithoutUserInput
@@ -288,10 +314,12 @@ export type UserCreateInput = {
 export type UserUncheckedCreateInput = {
   id?: string
   email: string
-  password: string
+  password?: string
   name: string
   plan?: string
   bio?: string | null
+  provider?: string
+  providerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   roadmaps?: Prisma.RoadmapUncheckedCreateNestedManyWithoutUserInput
@@ -306,6 +334,8 @@ export type UserUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roadmaps?: Prisma.RoadmapUpdateManyWithoutUserNestedInput
@@ -320,6 +350,8 @@ export type UserUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roadmaps?: Prisma.RoadmapUncheckedUpdateManyWithoutUserNestedInput
@@ -330,10 +362,12 @@ export type UserUncheckedUpdateInput = {
 export type UserCreateManyInput = {
   id?: string
   email: string
-  password: string
+  password?: string
   name: string
   plan?: string
   bio?: string | null
+  provider?: string
+  providerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -345,6 +379,8 @@ export type UserUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -356,6 +392,8 @@ export type UserUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -373,6 +411,8 @@ export type UserCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   bio?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -384,6 +424,8 @@ export type UserMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   bio?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -395,6 +437,8 @@ export type UserMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   bio?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -461,10 +505,12 @@ export type UserUpdateOneRequiredWithoutLikesNestedInput = {
 export type UserCreateWithoutRoadmapsInput = {
   id?: string
   email: string
-  password: string
+  password?: string
   name: string
   plan?: string
   bio?: string | null
+  provider?: string
+  providerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   notes?: Prisma.NoteCreateNestedManyWithoutUserInput
@@ -474,10 +520,12 @@ export type UserCreateWithoutRoadmapsInput = {
 export type UserUncheckedCreateWithoutRoadmapsInput = {
   id?: string
   email: string
-  password: string
+  password?: string
   name: string
   plan?: string
   bio?: string | null
+  provider?: string
+  providerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutUserInput
@@ -507,6 +555,8 @@ export type UserUpdateWithoutRoadmapsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NoteUpdateManyWithoutUserNestedInput
@@ -520,6 +570,8 @@ export type UserUncheckedUpdateWithoutRoadmapsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   notes?: Prisma.NoteUncheckedUpdateManyWithoutUserNestedInput
@@ -529,10 +581,12 @@ export type UserUncheckedUpdateWithoutRoadmapsInput = {
 export type UserCreateWithoutNotesInput = {
   id?: string
   email: string
-  password: string
+  password?: string
   name: string
   plan?: string
   bio?: string | null
+  provider?: string
+  providerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   roadmaps?: Prisma.RoadmapCreateNestedManyWithoutUserInput
@@ -542,10 +596,12 @@ export type UserCreateWithoutNotesInput = {
 export type UserUncheckedCreateWithoutNotesInput = {
   id?: string
   email: string
-  password: string
+  password?: string
   name: string
   plan?: string
   bio?: string | null
+  provider?: string
+  providerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   roadmaps?: Prisma.RoadmapUncheckedCreateNestedManyWithoutUserInput
@@ -575,6 +631,8 @@ export type UserUpdateWithoutNotesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roadmaps?: Prisma.RoadmapUpdateManyWithoutUserNestedInput
@@ -588,6 +646,8 @@ export type UserUncheckedUpdateWithoutNotesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roadmaps?: Prisma.RoadmapUncheckedUpdateManyWithoutUserNestedInput
@@ -597,10 +657,12 @@ export type UserUncheckedUpdateWithoutNotesInput = {
 export type UserCreateWithoutLikesInput = {
   id?: string
   email: string
-  password: string
+  password?: string
   name: string
   plan?: string
   bio?: string | null
+  provider?: string
+  providerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   roadmaps?: Prisma.RoadmapCreateNestedManyWithoutUserInput
@@ -610,10 +672,12 @@ export type UserCreateWithoutLikesInput = {
 export type UserUncheckedCreateWithoutLikesInput = {
   id?: string
   email: string
-  password: string
+  password?: string
   name: string
   plan?: string
   bio?: string | null
+  provider?: string
+  providerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   roadmaps?: Prisma.RoadmapUncheckedCreateNestedManyWithoutUserInput
@@ -643,6 +707,8 @@ export type UserUpdateWithoutLikesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roadmaps?: Prisma.RoadmapUpdateManyWithoutUserNestedInput
@@ -656,6 +722,8 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   plan?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roadmaps?: Prisma.RoadmapUncheckedUpdateManyWithoutUserNestedInput
@@ -718,6 +786,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   plan?: boolean
   bio?: boolean
+  provider?: boolean
+  providerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   roadmaps?: boolean | Prisma.User$roadmapsArgs<ExtArgs>
@@ -735,11 +805,13 @@ export type UserSelectScalar = {
   name?: boolean
   plan?: boolean
   bio?: boolean
+  provider?: boolean
+  providerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "name" | "plan" | "bio" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "name" | "plan" | "bio" | "provider" | "providerId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   roadmaps?: boolean | Prisma.User$roadmapsArgs<ExtArgs>
   notes?: boolean | Prisma.User$notesArgs<ExtArgs>
@@ -761,6 +833,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     name: string
     plan: string
     bio: string | null
+    provider: string
+    providerId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1141,6 +1215,8 @@ export interface UserFieldRefs {
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly plan: Prisma.FieldRef<"User", 'String'>
   readonly bio: Prisma.FieldRef<"User", 'String'>
+  readonly provider: Prisma.FieldRef<"User", 'String'>
+  readonly providerId: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }

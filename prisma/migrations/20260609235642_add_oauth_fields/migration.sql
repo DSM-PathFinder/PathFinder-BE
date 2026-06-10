@@ -2,10 +2,12 @@
 CREATE TABLE `User` (
     `id` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
-    `password` VARCHAR(191) NOT NULL,
+    `password` VARCHAR(191) NOT NULL DEFAULT '',
     `name` VARCHAR(191) NOT NULL,
     `plan` VARCHAR(191) NOT NULL DEFAULT 'Free Plan',
     `bio` TEXT NULL,
+    `provider` VARCHAR(191) NOT NULL DEFAULT 'local',
+    `providerId` VARCHAR(191) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
