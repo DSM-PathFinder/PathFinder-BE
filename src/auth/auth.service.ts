@@ -1,13 +1,13 @@
-import {
-  Injectable,
-  ConflictException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcryptjs';
 import { UsersService } from '../users/users.service';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
+
+interface OAuthUserData {
+  email: string;
+  name: string;
+  provider: string;
+  providerId: string;
+}
 
 @Injectable()
 export class AuthService {
@@ -16,37 +16,28 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(dto: RegisterDto) {
-    const exists = await this.usersService.findByEmail(dto.email);
-    if (exists) throw new ConflictException('이미 사용 중인 이메일입니다');
+  async findOrCreateOAuthUser(data: OAuthUserData) {
+    let user = await this.usersService.findByEmail(data.email);
 
-    const hashed = await bcrypt.hash(dto.password, 10);
-    const user = await this.usersService.create({
-      email: dto.email,
-      password: hashed,
-      name: dto.name,
-    });
+    if (!user) {
+      user = await this.usersService.create({
+        email: data.email,
+        name: data.name,
+        password: '',
+        provider: data.provider,
+        providerId: data.providerId,
+      });
+    }
 
-    const token = this.jwtService.sign({ sub: user.id });
-    const { password, ...rest } = user;
-    return { accessToken: token, user: rest };
+    return user;
   }
 
-  async login(dto: LoginDto) {
-    const user = await this.usersService.findByEmail(dto.email);
-    if (!user)
-      throw new UnauthorizedException(
-        '이메일 또는 비밀번호가 올바르지 않습니다',
-      );
+  generateToken(userId: string) {
+    return this.jwtService.sign({ sub: userId });
+  }
 
-    const valid = await bcrypt.compare(dto.password, user.password);
-    if (!valid)
-      throw new UnauthorizedException(
-        '이메일 또는 비밀번호가 올바르지 않습니다',
-      );
-
-    const token = this.jwtService.sign({ sub: user.id });
+  getProfile(user: any) {
     const { password, ...rest } = user;
-    return { accessToken: token, user: rest };
+    return rest;
   }
 }

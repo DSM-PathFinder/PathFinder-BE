@@ -1,48 +1,43 @@
-import {
-  Controller,
-  Post,
-  Get,
-  Patch,
-  Body,
-  UseGuards,
-  Request,
-} from '@nestjs/common';
+import { Controller, Get, UseGuards, Request, Res } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Response } from 'express';
 import { AuthService } from './auth.service';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
-import { UsersService } from '../users/users.service';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly usersService: UsersService,
+    private readonly config: ConfigService,
   ) {}
 
-  @Post('register')
-  register(@Body() dto: RegisterDto) {
-    return this.authService.register(dto);
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  googleLogin() {}
+
+  @Get('google/callback')
+  @UseGuards(AuthGuard('google'))
+  googleCallback(@Request() req: any, @Res() res: Response) {
+    const token = this.authService.generateToken(req.user.id);
+    const frontendUrl = this.config.get<string>('FRONTEND_URL');
+    res.redirect(`${frontendUrl}/auth/callback?token=${token}`);
   }
 
-  @Post('login')
-  login(@Body() dto: LoginDto) {
-    return this.authService.login(dto);
+  @Get('github')
+  @UseGuards(AuthGuard('github'))
+  githubLogin() {}
+
+  @Get('github/callback')
+  @UseGuards(AuthGuard('github'))
+  githubCallback(@Request() req: any, @Res() res: Response) {
+    const token = this.authService.generateToken(req.user.id);
+    const frontendUrl = this.config.get<string>('FRONTEND_URL');
+    res.redirect(`${frontendUrl}/auth/callback?token=${token}`);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get('me')
-  me(@Request() req: any) {
-    const { password, ...user } = req.user;
-    return user;
-  }
-
   @UseGuards(AuthGuard('jwt'))
-  @Patch('profile')
-  updateProfile(
-    @Request() req: any,
-    @Body() body: { name?: string; bio?: string },
-  ) {
-    return this.usersService.update(req.user.id, body);
+  me(@Request() req: any) {
+    return this.authService.getProfile(req.user);
   }
 }

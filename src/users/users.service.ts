@@ -15,8 +15,22 @@ export class UsersService {
     return user;
   }
 
-  async create(data: { email: string; password: string; name: string }) {
-    return this.prisma.user.create({ data });
+  async create(data: {
+    email: string;
+    name: string;
+    password?: string;
+    provider?: string;
+    providerId?: string;
+  }) {
+    return this.prisma.user.create({
+      data: {
+        email: data.email,
+        name: data.name,
+        password: data.password ?? '',
+        provider: data.provider ?? 'local',
+        providerId: data.providerId,
+      },
+    });
   }
 
   async update(id: string, data: { name?: string; bio?: string }) {
