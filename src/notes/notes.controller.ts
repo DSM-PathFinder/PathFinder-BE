@@ -17,6 +17,11 @@ import { NotesService } from './notes.service';
 export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 
+  @Get('by-task/:taskId')
+  findByTask(@Param('taskId') taskId: string, @Request() req: any) {
+    return this.notesService.findByTask(taskId, req.user.id);
+  }
+
   @Get()
   findAll(@Request() req: any) {
     return this.notesService.findAllByUser(req.user.id);
@@ -30,7 +35,8 @@ export class NotesController {
   @Post()
   create(
     @Request() req: any,
-    @Body() body: { title: string; content?: string; weekId?: string },
+    @Body()
+    body: { title: string; content?: string; weekId?: string; taskId?: string },
   ) {
     return this.notesService.create(req.user.id, body);
   }
