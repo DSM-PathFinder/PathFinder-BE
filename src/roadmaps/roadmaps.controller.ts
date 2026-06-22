@@ -17,6 +17,16 @@ import { RoadmapsService } from './roadmaps.service';
 export class RoadmapsController {
   constructor(private readonly roadmapsService: RoadmapsService) {}
 
+  @Get('stats')
+  getStats(@Request() req: any) {
+    return this.roadmapsService.getUserStats(req.user.id);
+  }
+
+  @Get(':id/chart')
+  getChart(@Param('id') id: string, @Request() req: any) {
+    return this.roadmapsService.getWeeklyChartData(req.user.id, id);
+  }
+
   @Get()
   findAll(@Request() req: any) {
     return this.roadmapsService.findAllByUser(req.user.id);
@@ -30,7 +40,13 @@ export class RoadmapsController {
   @Post()
   create(
     @Request() req: any,
-    @Body() body: { title: string; goal: string; isPublic?: boolean },
+    @Body()
+    body: {
+      title: string;
+      goal: string;
+      isPublic?: boolean;
+      category?: string;
+    },
   ) {
     return this.roadmapsService.create(req.user.id, body);
   }
@@ -39,7 +55,13 @@ export class RoadmapsController {
   update(
     @Param('id') id: string,
     @Request() req: any,
-    @Body() body: { title?: string; goal?: string; isPublic?: boolean },
+    @Body()
+    body: {
+      title?: string;
+      goal?: string;
+      isPublic?: boolean;
+      category?: string;
+    },
   ) {
     return this.roadmapsService.update(id, req.user.id, body);
   }

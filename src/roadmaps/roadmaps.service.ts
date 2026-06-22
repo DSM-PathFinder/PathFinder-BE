@@ -41,27 +41,39 @@ export class RoadmapsService {
 
   async create(
     userId: string,
-    data: { title: string; goal: string; isPublic?: boolean },
+    data: {
+      title: string;
+      goal: string;
+      isPublic?: boolean;
+      category?: string;
+    },
   ) {
     return this.prisma.roadmap.create({
       data: { ...data, userId },
-      include: {
-        weeks: { include: { tasks: true, resources: true } },
-      },
+      include: { weeks: { include: { tasks: true, resources: true } } },
     });
   }
 
   async update(
     id: string,
     userId: string,
-    data: { title?: string; goal?: string; isPublic?: boolean },
+    data: {
+      title?: string;
+      goal?: string;
+      isPublic?: boolean;
+      category?: string;
+    },
   ) {
     await this.findOne(id, userId);
     return this.prisma.roadmap.update({
       where: { id },
       data,
       include: {
-        weeks: { include: { tasks: true, resources: true } },
+        weeks: {
+          include: { tasks: true, resources: true },
+          orderBy: { weekNumber: 'asc' },
+        },
+        _count: { select: { likes: true } },
       },
     });
   }
@@ -79,13 +91,121 @@ export class RoadmapsService {
     if (!task) throw new NotFoundException('태스크를 찾을 수 없습니다');
     if (task.week.roadmap.userId !== userId) throw new ForbiddenException();
 
-    return this.prisma.task.update({
+    const newCompleted = !task.completed;
+
+    const updated = await this.prisma.task.update({
       where: { id: taskId },
-      data: { completed: !task.completed },
+      data: {
+        completed: newCompleted,
+        completedAt: newCompleted ? new Date() : null,
+      },
+    });
+
+    if (newCompleted) {
+      await this.updateStreak(userId);
+    }
+
+    return updated;
+  }
+
+  private async updateStreak(userId: string) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) return;
+
+    const now = new Date();
+    const last = user.lastActiveAt;
+
+    let newStreak = user.streak;
+
+    if (!last) {
+      newStreak = 1;
+    } else {
+      const diffDays = Math.floor(
+        (now.setHours(0, 0, 0, 0) - new Date(last).setHours(0, 0, 0, 0)) /
+          (1000 * 60 * 60 * 24),
+      );
+      if (diffDays === 0) {
+        newStreak = user.streak || 1;
+      } else if (diffDays === 1) {
+        newStreak = user.streak + 1;
+      } else {
+        newStreak = 1;
+      }
+    }
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { streak: newStreak, lastActiveAt: new Date() },
     });
   }
 
-  // Claude AI가 생성한 로드맵 데이터를 DB에 저장
+  async getUserStats(userId: string) {
+    const roadmaps = await this.prisma.roadmap.findMany({
+      where: { userId },
+      include: {
+        weeks: { include: { tasks: true } },
+        _count: { select: { likes: true } },
+      },
+    });
+
+    let totalTasks = 0;
+    let completedTasks = 0;
+    let totalEstimatedHours = 0;
+    let completedWeeks = 0;
+    let totalWeeks = 0;
+    let totalLikes = 0;
+
+    for (const r of roadmaps) {
+      totalLikes += r._count.likes;
+      for (const w of r.weeks) {
+        totalWeeks++;
+        totalEstimatedHours += w.estimatedHours;
+        const weekTaskCount = w.tasks.length;
+        const weekCompletedCount = w.tasks.filter((t) => t.completed).length;
+        totalTasks += weekTaskCount;
+        completedTasks += weekCompletedCount;
+        if (weekTaskCount > 0 && weekCompletedCount === weekTaskCount)
+          completedWeeks++;
+      }
+    }
+
+    const studiedHours =
+      totalEstimatedHours > 0
+        ? Math.round(
+            (completedTasks / Math.max(totalTasks, 1)) * totalEstimatedHours,
+          )
+        : 0;
+
+    const overallProgress =
+      totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+
+    return {
+      studiedHours,
+      overallProgress,
+      completedWeeks,
+      totalWeeks,
+      totalLikes,
+      streak: user?.streak ?? 0,
+    };
+  }
+
+  async getWeeklyChartData(userId: string, roadmapId: string) {
+    const roadmap = await this.findOne(roadmapId, userId);
+    return roadmap.weeks.map((w) => {
+      const total = w.tasks.length;
+      const done = w.tasks.filter((t) => t.completed).length;
+      const actual =
+        total > 0 ? Math.round((done / total) * w.estimatedHours) : 0;
+      return {
+        name: `Week ${w.weekNumber}`,
+        hours: actual,
+        expected: w.estimatedHours,
+      };
+    });
+  }
+
   async createFromAI(userId: string, aiData: any) {
     return this.prisma.roadmap.create({
       data: {
@@ -115,13 +235,10 @@ export class RoadmapsService {
           })),
         },
       },
-      include: {
-        weeks: { include: { tasks: true, resources: true } },
-      },
+      include: { weeks: { include: { tasks: true, resources: true } } },
     });
   }
 
-  // 재플랜: 특정 주차 이후 weeks를 교체
   async replaceWeeksFromAI(
     id: string,
     userId: string,
@@ -130,7 +247,6 @@ export class RoadmapsService {
   ) {
     await this.findOne(id, userId);
 
-    // fromWeek 이후 weeks 삭제
     const toDelete = await this.prisma.week.findMany({
       where: { roadmapId: id, weekNumber: { gte: fromWeek } },
     });
@@ -138,7 +254,6 @@ export class RoadmapsService {
       where: { id: { in: toDelete.map((w) => w.id) } },
     });
 
-    // 새 weeks 생성
     for (const [i, w] of aiWeeks.entries()) {
       await this.prisma.week.create({
         data: {
