@@ -34,6 +34,14 @@ export class UsersService {
   }
 
   async update(id: string, data: { name?: string; bio?: string }) {
-    return this.prisma.user.update({ where: { id }, data });
+    const updateData: { name?: string; bio?: string } = {};
+    if (data.name !== undefined) updateData.name = data.name;
+    if (data.bio !== undefined) updateData.bio = data.bio;
+
+    const { password, ...user } = await this.prisma.user.update({
+      where: { id },
+      data: updateData,
+    });
+    return user;
   }
 }
