@@ -9,26 +9,29 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  email      String   @unique
-  password   String   @default("")
-  name       String
-  plan       String   @default("Free Plan")
-  bio        String?  @db.Text
-  provider   String   @default("local")   // google | github | local
-  providerId String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id          String   @id @default(uuid())
+  email       String   @unique
+  password    String   @default("")
+  name        String
+  plan        String   @default("Free Plan")
+  bio         String?  @db.Text
+  provider    String   @default("local")
+  providerId  String?
+  streak      Int      @default(0)
+  lastActiveAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  roadmaps   Roadmap[]
-  notes      Note[]
-  likes      Like[]
+  roadmaps    Roadmap[]
+  notes       Note[]
+  likes       Like[]
 }
 
 model Roadmap {
   id        String   @id @default(uuid())
   title     String
   goal      String   @db.Text
+  category  String   @default("Frontend") // Frontend | Backend | AI/ML | Data | DevOps
   isPublic  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -46,6 +49,7 @@ model Week {
   theme          String
   description    String   @db.Text
   estimatedHours Int      @default(0)
+  actualHours    Int      @default(0)   // 실제 학습 시간 (태스크 완료 시 누적)
 
   roadmap        Roadmap  @relation(fields: [roadmapId], references: [id], onDelete: Cascade)
   roadmapId      String
@@ -55,12 +59,15 @@ model Week {
 }
 
 model Task {
-  id        String  @id @default(uuid())
-  title     String
-  completed Boolean @default(false)
+  id          String    @id @default(uuid())
+  title       String
+  completed   Boolean   @default(false)
+  completedAt DateTime?
 
-  week      Week    @relation(fields: [weekId], references: [id], onDelete: Cascade)
-  weekId    String
+  week        Week      @relation(fields: [weekId], references: [id], onDelete: Cascade)
+  weekId      String
+
+  notes       Note[]
 }
 
 model Resource {
@@ -78,6 +85,9 @@ model Note {
   title     String
   content   String?  @db.LongText
   weekId    String?
+
+  task      Task?    @relation(fields: [taskId], references: [id], onDelete: SetNull)
+  taskId    String?
 
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String

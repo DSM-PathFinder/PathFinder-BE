@@ -29,6 +29,7 @@ export type NoteMinAggregateOutputType = {
   title: string | null
   content: string | null
   weekId: string | null
+  taskId: string | null
   userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -39,6 +40,7 @@ export type NoteMaxAggregateOutputType = {
   title: string | null
   content: string | null
   weekId: string | null
+  taskId: string | null
   userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -49,6 +51,7 @@ export type NoteCountAggregateOutputType = {
   title: number
   content: number
   weekId: number
+  taskId: number
   userId: number
   createdAt: number
   updatedAt: number
@@ -61,6 +64,7 @@ export type NoteMinAggregateInputType = {
   title?: true
   content?: true
   weekId?: true
+  taskId?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -71,6 +75,7 @@ export type NoteMaxAggregateInputType = {
   title?: true
   content?: true
   weekId?: true
+  taskId?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -81,6 +86,7 @@ export type NoteCountAggregateInputType = {
   title?: true
   content?: true
   weekId?: true
+  taskId?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -164,6 +170,7 @@ export type NoteGroupByOutputType = {
   title: string
   content: string | null
   weekId: string | null
+  taskId: string | null
   userId: string
   createdAt: Date
   updatedAt: Date
@@ -195,9 +202,11 @@ export type NoteWhereInput = {
   title?: Prisma.StringFilter<"Note"> | string
   content?: Prisma.StringNullableFilter<"Note"> | string | null
   weekId?: Prisma.StringNullableFilter<"Note"> | string | null
+  taskId?: Prisma.StringNullableFilter<"Note"> | string | null
   userId?: Prisma.StringFilter<"Note"> | string
   createdAt?: Prisma.DateTimeFilter<"Note"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Note"> | Date | string
+  task?: Prisma.XOR<Prisma.TaskNullableScalarRelationFilter, Prisma.TaskWhereInput> | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -206,9 +215,11 @@ export type NoteOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   weekId?: Prisma.SortOrderInput | Prisma.SortOrder
+  taskId?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  task?: Prisma.TaskOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
   _relevance?: Prisma.NoteOrderByRelevanceInput
 }
@@ -221,9 +232,11 @@ export type NoteWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Note"> | string
   content?: Prisma.StringNullableFilter<"Note"> | string | null
   weekId?: Prisma.StringNullableFilter<"Note"> | string | null
+  taskId?: Prisma.StringNullableFilter<"Note"> | string | null
   userId?: Prisma.StringFilter<"Note"> | string
   createdAt?: Prisma.DateTimeFilter<"Note"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Note"> | Date | string
+  task?: Prisma.XOR<Prisma.TaskNullableScalarRelationFilter, Prisma.TaskWhereInput> | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
@@ -232,6 +245,7 @@ export type NoteOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   weekId?: Prisma.SortOrderInput | Prisma.SortOrder
+  taskId?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -248,6 +262,7 @@ export type NoteScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Note"> | string
   content?: Prisma.StringNullableWithAggregatesFilter<"Note"> | string | null
   weekId?: Prisma.StringNullableWithAggregatesFilter<"Note"> | string | null
+  taskId?: Prisma.StringNullableWithAggregatesFilter<"Note"> | string | null
   userId?: Prisma.StringWithAggregatesFilter<"Note"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Note"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Note"> | Date | string
@@ -260,6 +275,7 @@ export type NoteCreateInput = {
   weekId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  task?: Prisma.TaskCreateNestedOneWithoutNotesInput
   user: Prisma.UserCreateNestedOneWithoutNotesInput
 }
 
@@ -268,6 +284,7 @@ export type NoteUncheckedCreateInput = {
   title: string
   content?: string | null
   weekId?: string | null
+  taskId?: string | null
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -280,6 +297,7 @@ export type NoteUpdateInput = {
   weekId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  task?: Prisma.TaskUpdateOneWithoutNotesNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutNotesNestedInput
 }
 
@@ -288,6 +306,7 @@ export type NoteUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -298,6 +317,7 @@ export type NoteCreateManyInput = {
   title: string
   content?: string | null
   weekId?: string | null
+  taskId?: string | null
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -317,6 +337,7 @@ export type NoteUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -343,6 +364,7 @@ export type NoteCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
+  taskId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -353,6 +375,7 @@ export type NoteMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
+  taskId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -363,6 +386,7 @@ export type NoteMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   content?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
+  taskId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -410,6 +434,48 @@ export type NoteUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.NoteScalarWhereInput | Prisma.NoteScalarWhereInput[]
 }
 
+export type NoteCreateNestedManyWithoutTaskInput = {
+  create?: Prisma.XOR<Prisma.NoteCreateWithoutTaskInput, Prisma.NoteUncheckedCreateWithoutTaskInput> | Prisma.NoteCreateWithoutTaskInput[] | Prisma.NoteUncheckedCreateWithoutTaskInput[]
+  connectOrCreate?: Prisma.NoteCreateOrConnectWithoutTaskInput | Prisma.NoteCreateOrConnectWithoutTaskInput[]
+  createMany?: Prisma.NoteCreateManyTaskInputEnvelope
+  connect?: Prisma.NoteWhereUniqueInput | Prisma.NoteWhereUniqueInput[]
+}
+
+export type NoteUncheckedCreateNestedManyWithoutTaskInput = {
+  create?: Prisma.XOR<Prisma.NoteCreateWithoutTaskInput, Prisma.NoteUncheckedCreateWithoutTaskInput> | Prisma.NoteCreateWithoutTaskInput[] | Prisma.NoteUncheckedCreateWithoutTaskInput[]
+  connectOrCreate?: Prisma.NoteCreateOrConnectWithoutTaskInput | Prisma.NoteCreateOrConnectWithoutTaskInput[]
+  createMany?: Prisma.NoteCreateManyTaskInputEnvelope
+  connect?: Prisma.NoteWhereUniqueInput | Prisma.NoteWhereUniqueInput[]
+}
+
+export type NoteUpdateManyWithoutTaskNestedInput = {
+  create?: Prisma.XOR<Prisma.NoteCreateWithoutTaskInput, Prisma.NoteUncheckedCreateWithoutTaskInput> | Prisma.NoteCreateWithoutTaskInput[] | Prisma.NoteUncheckedCreateWithoutTaskInput[]
+  connectOrCreate?: Prisma.NoteCreateOrConnectWithoutTaskInput | Prisma.NoteCreateOrConnectWithoutTaskInput[]
+  upsert?: Prisma.NoteUpsertWithWhereUniqueWithoutTaskInput | Prisma.NoteUpsertWithWhereUniqueWithoutTaskInput[]
+  createMany?: Prisma.NoteCreateManyTaskInputEnvelope
+  set?: Prisma.NoteWhereUniqueInput | Prisma.NoteWhereUniqueInput[]
+  disconnect?: Prisma.NoteWhereUniqueInput | Prisma.NoteWhereUniqueInput[]
+  delete?: Prisma.NoteWhereUniqueInput | Prisma.NoteWhereUniqueInput[]
+  connect?: Prisma.NoteWhereUniqueInput | Prisma.NoteWhereUniqueInput[]
+  update?: Prisma.NoteUpdateWithWhereUniqueWithoutTaskInput | Prisma.NoteUpdateWithWhereUniqueWithoutTaskInput[]
+  updateMany?: Prisma.NoteUpdateManyWithWhereWithoutTaskInput | Prisma.NoteUpdateManyWithWhereWithoutTaskInput[]
+  deleteMany?: Prisma.NoteScalarWhereInput | Prisma.NoteScalarWhereInput[]
+}
+
+export type NoteUncheckedUpdateManyWithoutTaskNestedInput = {
+  create?: Prisma.XOR<Prisma.NoteCreateWithoutTaskInput, Prisma.NoteUncheckedCreateWithoutTaskInput> | Prisma.NoteCreateWithoutTaskInput[] | Prisma.NoteUncheckedCreateWithoutTaskInput[]
+  connectOrCreate?: Prisma.NoteCreateOrConnectWithoutTaskInput | Prisma.NoteCreateOrConnectWithoutTaskInput[]
+  upsert?: Prisma.NoteUpsertWithWhereUniqueWithoutTaskInput | Prisma.NoteUpsertWithWhereUniqueWithoutTaskInput[]
+  createMany?: Prisma.NoteCreateManyTaskInputEnvelope
+  set?: Prisma.NoteWhereUniqueInput | Prisma.NoteWhereUniqueInput[]
+  disconnect?: Prisma.NoteWhereUniqueInput | Prisma.NoteWhereUniqueInput[]
+  delete?: Prisma.NoteWhereUniqueInput | Prisma.NoteWhereUniqueInput[]
+  connect?: Prisma.NoteWhereUniqueInput | Prisma.NoteWhereUniqueInput[]
+  update?: Prisma.NoteUpdateWithWhereUniqueWithoutTaskInput | Prisma.NoteUpdateWithWhereUniqueWithoutTaskInput[]
+  updateMany?: Prisma.NoteUpdateManyWithWhereWithoutTaskInput | Prisma.NoteUpdateManyWithWhereWithoutTaskInput[]
+  deleteMany?: Prisma.NoteScalarWhereInput | Prisma.NoteScalarWhereInput[]
+}
+
 export type NoteCreateWithoutUserInput = {
   id?: string
   title: string
@@ -417,6 +483,7 @@ export type NoteCreateWithoutUserInput = {
   weekId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  task?: Prisma.TaskCreateNestedOneWithoutNotesInput
 }
 
 export type NoteUncheckedCreateWithoutUserInput = {
@@ -424,6 +491,7 @@ export type NoteUncheckedCreateWithoutUserInput = {
   title: string
   content?: string | null
   weekId?: string | null
+  taskId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -462,9 +530,56 @@ export type NoteScalarWhereInput = {
   title?: Prisma.StringFilter<"Note"> | string
   content?: Prisma.StringNullableFilter<"Note"> | string | null
   weekId?: Prisma.StringNullableFilter<"Note"> | string | null
+  taskId?: Prisma.StringNullableFilter<"Note"> | string | null
   userId?: Prisma.StringFilter<"Note"> | string
   createdAt?: Prisma.DateTimeFilter<"Note"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Note"> | Date | string
+}
+
+export type NoteCreateWithoutTaskInput = {
+  id?: string
+  title: string
+  content?: string | null
+  weekId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutNotesInput
+}
+
+export type NoteUncheckedCreateWithoutTaskInput = {
+  id?: string
+  title: string
+  content?: string | null
+  weekId?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type NoteCreateOrConnectWithoutTaskInput = {
+  where: Prisma.NoteWhereUniqueInput
+  create: Prisma.XOR<Prisma.NoteCreateWithoutTaskInput, Prisma.NoteUncheckedCreateWithoutTaskInput>
+}
+
+export type NoteCreateManyTaskInputEnvelope = {
+  data: Prisma.NoteCreateManyTaskInput | Prisma.NoteCreateManyTaskInput[]
+  skipDuplicates?: boolean
+}
+
+export type NoteUpsertWithWhereUniqueWithoutTaskInput = {
+  where: Prisma.NoteWhereUniqueInput
+  update: Prisma.XOR<Prisma.NoteUpdateWithoutTaskInput, Prisma.NoteUncheckedUpdateWithoutTaskInput>
+  create: Prisma.XOR<Prisma.NoteCreateWithoutTaskInput, Prisma.NoteUncheckedCreateWithoutTaskInput>
+}
+
+export type NoteUpdateWithWhereUniqueWithoutTaskInput = {
+  where: Prisma.NoteWhereUniqueInput
+  data: Prisma.XOR<Prisma.NoteUpdateWithoutTaskInput, Prisma.NoteUncheckedUpdateWithoutTaskInput>
+}
+
+export type NoteUpdateManyWithWhereWithoutTaskInput = {
+  where: Prisma.NoteScalarWhereInput
+  data: Prisma.XOR<Prisma.NoteUpdateManyMutationInput, Prisma.NoteUncheckedUpdateManyWithoutTaskInput>
 }
 
 export type NoteCreateManyUserInput = {
@@ -472,6 +587,7 @@ export type NoteCreateManyUserInput = {
   title: string
   content?: string | null
   weekId?: string | null
+  taskId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -483,6 +599,7 @@ export type NoteUpdateWithoutUserInput = {
   weekId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  task?: Prisma.TaskUpdateOneWithoutNotesNestedInput
 }
 
 export type NoteUncheckedUpdateWithoutUserInput = {
@@ -490,6 +607,7 @@ export type NoteUncheckedUpdateWithoutUserInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -499,6 +617,47 @@ export type NoteUncheckedUpdateManyWithoutUserInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taskId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type NoteCreateManyTaskInput = {
+  id?: string
+  title: string
+  content?: string | null
+  weekId?: string | null
+  userId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type NoteUpdateWithoutTaskInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weekId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutNotesNestedInput
+}
+
+export type NoteUncheckedUpdateWithoutTaskInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weekId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type NoteUncheckedUpdateManyWithoutTaskInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weekId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -510,9 +669,11 @@ export type NoteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   title?: boolean
   content?: boolean
   weekId?: boolean
+  taskId?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  task?: boolean | Prisma.Note$taskArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["note"]>
 
@@ -523,19 +684,22 @@ export type NoteSelectScalar = {
   title?: boolean
   content?: boolean
   weekId?: boolean
+  taskId?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type NoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "weekId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["note"]>
+export type NoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "weekId" | "taskId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["note"]>
 export type NoteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  task?: boolean | Prisma.Note$taskArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $NotePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Note"
   objects: {
+    task: Prisma.$TaskPayload<ExtArgs> | null
     user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -543,6 +707,7 @@ export type $NotePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     title: string
     content: string | null
     weekId: string | null
+    taskId: string | null
     userId: string
     createdAt: Date
     updatedAt: Date
@@ -886,6 +1051,7 @@ readonly fields: NoteFieldRefs;
  */
 export interface Prisma__NoteClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  task<T extends Prisma.Note$taskArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Note$taskArgs<ExtArgs>>): Prisma.Prisma__TaskClient<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -920,6 +1086,7 @@ export interface NoteFieldRefs {
   readonly title: Prisma.FieldRef<"Note", 'String'>
   readonly content: Prisma.FieldRef<"Note", 'String'>
   readonly weekId: Prisma.FieldRef<"Note", 'String'>
+  readonly taskId: Prisma.FieldRef<"Note", 'String'>
   readonly userId: Prisma.FieldRef<"Note", 'String'>
   readonly createdAt: Prisma.FieldRef<"Note", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Note", 'DateTime'>
@@ -1268,6 +1435,25 @@ export type NoteDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Notes to delete.
    */
   limit?: number
+}
+
+/**
+ * Note.task
+ */
+export type Note$taskArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Task
+   */
+  select?: Prisma.TaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Task
+   */
+  omit?: Prisma.TaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TaskInclude<ExtArgs> | null
+  where?: Prisma.TaskWhereInput
 }
 
 /**

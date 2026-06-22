@@ -85,6 +85,8 @@ export const UserScalarFieldEnum = {
   bio: 'bio',
   provider: 'provider',
   providerId: 'providerId',
+  streak: 'streak',
+  lastActiveAt: 'lastActiveAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -96,6 +98,7 @@ export const RoadmapScalarFieldEnum = {
   id: 'id',
   title: 'title',
   goal: 'goal',
+  category: 'category',
   isPublic: 'isPublic',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -111,6 +114,7 @@ export const WeekScalarFieldEnum = {
   theme: 'theme',
   description: 'description',
   estimatedHours: 'estimatedHours',
+  actualHours: 'actualHours',
   roadmapId: 'roadmapId'
 } as const
 
@@ -121,6 +125,7 @@ export const TaskScalarFieldEnum = {
   id: 'id',
   title: 'title',
   completed: 'completed',
+  completedAt: 'completedAt',
   weekId: 'weekId'
 } as const
 
@@ -143,6 +148,7 @@ export const NoteScalarFieldEnum = {
   title: 'title',
   content: 'content',
   weekId: 'weekId',
+  taskId: 'taskId',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -195,6 +201,7 @@ export const RoadmapOrderByRelevanceFieldEnum = {
   id: 'id',
   title: 'title',
   goal: 'goal',
+  category: 'category',
   userId: 'userId'
 } as const
 
@@ -236,6 +243,7 @@ export const NoteOrderByRelevanceFieldEnum = {
   title: 'title',
   content: 'content',
   weekId: 'weekId',
+  taskId: 'taskId',
   userId: 'userId'
 } as const
 

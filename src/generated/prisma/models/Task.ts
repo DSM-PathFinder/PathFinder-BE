@@ -28,6 +28,7 @@ export type TaskMinAggregateOutputType = {
   id: string | null
   title: string | null
   completed: boolean | null
+  completedAt: Date | null
   weekId: string | null
 }
 
@@ -35,6 +36,7 @@ export type TaskMaxAggregateOutputType = {
   id: string | null
   title: string | null
   completed: boolean | null
+  completedAt: Date | null
   weekId: string | null
 }
 
@@ -42,6 +44,7 @@ export type TaskCountAggregateOutputType = {
   id: number
   title: number
   completed: number
+  completedAt: number
   weekId: number
   _all: number
 }
@@ -51,6 +54,7 @@ export type TaskMinAggregateInputType = {
   id?: true
   title?: true
   completed?: true
+  completedAt?: true
   weekId?: true
 }
 
@@ -58,6 +62,7 @@ export type TaskMaxAggregateInputType = {
   id?: true
   title?: true
   completed?: true
+  completedAt?: true
   weekId?: true
 }
 
@@ -65,6 +70,7 @@ export type TaskCountAggregateInputType = {
   id?: true
   title?: true
   completed?: true
+  completedAt?: true
   weekId?: true
   _all?: true
 }
@@ -145,6 +151,7 @@ export type TaskGroupByOutputType = {
   id: string
   title: string
   completed: boolean
+  completedAt: Date | null
   weekId: string
   _count: TaskCountAggregateOutputType | null
   _min: TaskMinAggregateOutputType | null
@@ -173,16 +180,20 @@ export type TaskWhereInput = {
   id?: Prisma.StringFilter<"Task"> | string
   title?: Prisma.StringFilter<"Task"> | string
   completed?: Prisma.BoolFilter<"Task"> | boolean
+  completedAt?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null
   weekId?: Prisma.StringFilter<"Task"> | string
   week?: Prisma.XOR<Prisma.WeekScalarRelationFilter, Prisma.WeekWhereInput>
+  notes?: Prisma.NoteListRelationFilter
 }
 
 export type TaskOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   completed?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   weekId?: Prisma.SortOrder
   week?: Prisma.WeekOrderByWithRelationInput
+  notes?: Prisma.NoteOrderByRelationAggregateInput
   _relevance?: Prisma.TaskOrderByRelevanceInput
 }
 
@@ -193,14 +204,17 @@ export type TaskWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TaskWhereInput | Prisma.TaskWhereInput[]
   title?: Prisma.StringFilter<"Task"> | string
   completed?: Prisma.BoolFilter<"Task"> | boolean
+  completedAt?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null
   weekId?: Prisma.StringFilter<"Task"> | string
   week?: Prisma.XOR<Prisma.WeekScalarRelationFilter, Prisma.WeekWhereInput>
+  notes?: Prisma.NoteListRelationFilter
 }, "id">
 
 export type TaskOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   completed?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   weekId?: Prisma.SortOrder
   _count?: Prisma.TaskCountOrderByAggregateInput
   _max?: Prisma.TaskMaxOrderByAggregateInput
@@ -214,6 +228,7 @@ export type TaskScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Task"> | string
   title?: Prisma.StringWithAggregatesFilter<"Task"> | string
   completed?: Prisma.BoolWithAggregatesFilter<"Task"> | boolean
+  completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Task"> | Date | string | null
   weekId?: Prisma.StringWithAggregatesFilter<"Task"> | string
 }
 
@@ -221,34 +236,43 @@ export type TaskCreateInput = {
   id?: string
   title: string
   completed?: boolean
+  completedAt?: Date | string | null
   week: Prisma.WeekCreateNestedOneWithoutTasksInput
+  notes?: Prisma.NoteCreateNestedManyWithoutTaskInput
 }
 
 export type TaskUncheckedCreateInput = {
   id?: string
   title: string
   completed?: boolean
+  completedAt?: Date | string | null
   weekId: string
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutTaskInput
 }
 
 export type TaskUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   week?: Prisma.WeekUpdateOneRequiredWithoutTasksNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutTaskNestedInput
 }
 
 export type TaskUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   weekId?: Prisma.StringFieldUpdateOperationsInput | string
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutTaskNestedInput
 }
 
 export type TaskCreateManyInput = {
   id?: string
   title: string
   completed?: boolean
+  completedAt?: Date | string | null
   weekId: string
 }
 
@@ -256,12 +280,14 @@ export type TaskUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type TaskUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   weekId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -285,6 +311,7 @@ export type TaskCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   completed?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
 }
 
@@ -292,6 +319,7 @@ export type TaskMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   completed?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
 }
 
@@ -299,7 +327,13 @@ export type TaskMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   completed?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrder
   weekId?: Prisma.SortOrder
+}
+
+export type TaskNullableScalarRelationFilter = {
+  is?: Prisma.TaskWhereInput | null
+  isNot?: Prisma.TaskWhereInput | null
 }
 
 export type TaskCreateNestedManyWithoutWeekInput = {
@@ -344,16 +378,36 @@ export type TaskUncheckedUpdateManyWithoutWeekNestedInput = {
   deleteMany?: Prisma.TaskScalarWhereInput | Prisma.TaskScalarWhereInput[]
 }
 
+export type TaskCreateNestedOneWithoutNotesInput = {
+  create?: Prisma.XOR<Prisma.TaskCreateWithoutNotesInput, Prisma.TaskUncheckedCreateWithoutNotesInput>
+  connectOrCreate?: Prisma.TaskCreateOrConnectWithoutNotesInput
+  connect?: Prisma.TaskWhereUniqueInput
+}
+
+export type TaskUpdateOneWithoutNotesNestedInput = {
+  create?: Prisma.XOR<Prisma.TaskCreateWithoutNotesInput, Prisma.TaskUncheckedCreateWithoutNotesInput>
+  connectOrCreate?: Prisma.TaskCreateOrConnectWithoutNotesInput
+  upsert?: Prisma.TaskUpsertWithoutNotesInput
+  disconnect?: Prisma.TaskWhereInput | boolean
+  delete?: Prisma.TaskWhereInput | boolean
+  connect?: Prisma.TaskWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TaskUpdateToOneWithWhereWithoutNotesInput, Prisma.TaskUpdateWithoutNotesInput>, Prisma.TaskUncheckedUpdateWithoutNotesInput>
+}
+
 export type TaskCreateWithoutWeekInput = {
   id?: string
   title: string
   completed?: boolean
+  completedAt?: Date | string | null
+  notes?: Prisma.NoteCreateNestedManyWithoutTaskInput
 }
 
 export type TaskUncheckedCreateWithoutWeekInput = {
   id?: string
   title: string
   completed?: boolean
+  completedAt?: Date | string | null
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutTaskInput
 }
 
 export type TaskCreateOrConnectWithoutWeekInput = {
@@ -389,41 +443,128 @@ export type TaskScalarWhereInput = {
   id?: Prisma.StringFilter<"Task"> | string
   title?: Prisma.StringFilter<"Task"> | string
   completed?: Prisma.BoolFilter<"Task"> | boolean
+  completedAt?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null
   weekId?: Prisma.StringFilter<"Task"> | string
+}
+
+export type TaskCreateWithoutNotesInput = {
+  id?: string
+  title: string
+  completed?: boolean
+  completedAt?: Date | string | null
+  week: Prisma.WeekCreateNestedOneWithoutTasksInput
+}
+
+export type TaskUncheckedCreateWithoutNotesInput = {
+  id?: string
+  title: string
+  completed?: boolean
+  completedAt?: Date | string | null
+  weekId: string
+}
+
+export type TaskCreateOrConnectWithoutNotesInput = {
+  where: Prisma.TaskWhereUniqueInput
+  create: Prisma.XOR<Prisma.TaskCreateWithoutNotesInput, Prisma.TaskUncheckedCreateWithoutNotesInput>
+}
+
+export type TaskUpsertWithoutNotesInput = {
+  update: Prisma.XOR<Prisma.TaskUpdateWithoutNotesInput, Prisma.TaskUncheckedUpdateWithoutNotesInput>
+  create: Prisma.XOR<Prisma.TaskCreateWithoutNotesInput, Prisma.TaskUncheckedCreateWithoutNotesInput>
+  where?: Prisma.TaskWhereInput
+}
+
+export type TaskUpdateToOneWithWhereWithoutNotesInput = {
+  where?: Prisma.TaskWhereInput
+  data: Prisma.XOR<Prisma.TaskUpdateWithoutNotesInput, Prisma.TaskUncheckedUpdateWithoutNotesInput>
+}
+
+export type TaskUpdateWithoutNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  week?: Prisma.WeekUpdateOneRequiredWithoutTasksNestedInput
+}
+
+export type TaskUncheckedUpdateWithoutNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  weekId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TaskCreateManyWeekInput = {
   id?: string
   title: string
   completed?: boolean
+  completedAt?: Date | string | null
 }
 
 export type TaskUpdateWithoutWeekInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NoteUpdateManyWithoutTaskNestedInput
 }
 
 export type TaskUncheckedUpdateWithoutWeekInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutTaskNestedInput
 }
 
 export type TaskUncheckedUpdateManyWithoutWeekInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   completed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
+
+/**
+ * Count Type TaskCountOutputType
+ */
+
+export type TaskCountOutputType = {
+  notes: number
+}
+
+export type TaskCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  notes?: boolean | TaskCountOutputTypeCountNotesArgs
+}
+
+/**
+ * TaskCountOutputType without action
+ */
+export type TaskCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TaskCountOutputType
+   */
+  select?: Prisma.TaskCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TaskCountOutputType without action
+ */
+export type TaskCountOutputTypeCountNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NoteWhereInput
+}
 
 
 export type TaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
   completed?: boolean
+  completedAt?: boolean
   weekId?: boolean
   week?: boolean | Prisma.WeekDefaultArgs<ExtArgs>
+  notes?: boolean | Prisma.Task$notesArgs<ExtArgs>
+  _count?: boolean | Prisma.TaskCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["task"]>
 
 
@@ -432,23 +573,28 @@ export type TaskSelectScalar = {
   id?: boolean
   title?: boolean
   completed?: boolean
+  completedAt?: boolean
   weekId?: boolean
 }
 
-export type TaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "completed" | "weekId", ExtArgs["result"]["task"]>
+export type TaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "completed" | "completedAt" | "weekId", ExtArgs["result"]["task"]>
 export type TaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   week?: boolean | Prisma.WeekDefaultArgs<ExtArgs>
+  notes?: boolean | Prisma.Task$notesArgs<ExtArgs>
+  _count?: boolean | Prisma.TaskCountOutputTypeDefaultArgs<ExtArgs>
 }
 
 export type $TaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Task"
   objects: {
     week: Prisma.$WeekPayload<ExtArgs>
+    notes: Prisma.$NotePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
     completed: boolean
+    completedAt: Date | null
     weekId: string
   }, ExtArgs["result"]["task"]>
   composites: {}
@@ -791,6 +937,7 @@ readonly fields: TaskFieldRefs;
 export interface Prisma__TaskClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   week<T extends Prisma.WeekDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.WeekDefaultArgs<ExtArgs>>): Prisma.Prisma__WeekClient<runtime.Types.Result.GetResult<Prisma.$WeekPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  notes<T extends Prisma.Task$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Task$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -823,6 +970,7 @@ export interface TaskFieldRefs {
   readonly id: Prisma.FieldRef<"Task", 'String'>
   readonly title: Prisma.FieldRef<"Task", 'String'>
   readonly completed: Prisma.FieldRef<"Task", 'Boolean'>
+  readonly completedAt: Prisma.FieldRef<"Task", 'DateTime'>
   readonly weekId: Prisma.FieldRef<"Task", 'String'>
 }
     
@@ -1169,6 +1317,30 @@ export type TaskDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Tasks to delete.
    */
   limit?: number
+}
+
+/**
+ * Task.notes
+ */
+export type Task$notesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Note
+   */
+  select?: Prisma.NoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Note
+   */
+  omit?: Prisma.NoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NoteInclude<ExtArgs> | null
+  where?: Prisma.NoteWhereInput
+  orderBy?: Prisma.NoteOrderByWithRelationInput | Prisma.NoteOrderByWithRelationInput[]
+  cursor?: Prisma.NoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NoteScalarFieldEnum | Prisma.NoteScalarFieldEnum[]
 }
 
 /**

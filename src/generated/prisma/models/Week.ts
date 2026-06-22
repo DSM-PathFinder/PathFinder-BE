@@ -29,11 +29,13 @@ export type AggregateWeek = {
 export type WeekAvgAggregateOutputType = {
   weekNumber: number | null
   estimatedHours: number | null
+  actualHours: number | null
 }
 
 export type WeekSumAggregateOutputType = {
   weekNumber: number | null
   estimatedHours: number | null
+  actualHours: number | null
 }
 
 export type WeekMinAggregateOutputType = {
@@ -42,6 +44,7 @@ export type WeekMinAggregateOutputType = {
   theme: string | null
   description: string | null
   estimatedHours: number | null
+  actualHours: number | null
   roadmapId: string | null
 }
 
@@ -51,6 +54,7 @@ export type WeekMaxAggregateOutputType = {
   theme: string | null
   description: string | null
   estimatedHours: number | null
+  actualHours: number | null
   roadmapId: string | null
 }
 
@@ -60,6 +64,7 @@ export type WeekCountAggregateOutputType = {
   theme: number
   description: number
   estimatedHours: number
+  actualHours: number
   roadmapId: number
   _all: number
 }
@@ -68,11 +73,13 @@ export type WeekCountAggregateOutputType = {
 export type WeekAvgAggregateInputType = {
   weekNumber?: true
   estimatedHours?: true
+  actualHours?: true
 }
 
 export type WeekSumAggregateInputType = {
   weekNumber?: true
   estimatedHours?: true
+  actualHours?: true
 }
 
 export type WeekMinAggregateInputType = {
@@ -81,6 +88,7 @@ export type WeekMinAggregateInputType = {
   theme?: true
   description?: true
   estimatedHours?: true
+  actualHours?: true
   roadmapId?: true
 }
 
@@ -90,6 +98,7 @@ export type WeekMaxAggregateInputType = {
   theme?: true
   description?: true
   estimatedHours?: true
+  actualHours?: true
   roadmapId?: true
 }
 
@@ -99,6 +108,7 @@ export type WeekCountAggregateInputType = {
   theme?: true
   description?: true
   estimatedHours?: true
+  actualHours?: true
   roadmapId?: true
   _all?: true
 }
@@ -195,6 +205,7 @@ export type WeekGroupByOutputType = {
   theme: string
   description: string
   estimatedHours: number
+  actualHours: number
   roadmapId: string
   _count: WeekCountAggregateOutputType | null
   _avg: WeekAvgAggregateOutputType | null
@@ -227,6 +238,7 @@ export type WeekWhereInput = {
   theme?: Prisma.StringFilter<"Week"> | string
   description?: Prisma.StringFilter<"Week"> | string
   estimatedHours?: Prisma.IntFilter<"Week"> | number
+  actualHours?: Prisma.IntFilter<"Week"> | number
   roadmapId?: Prisma.StringFilter<"Week"> | string
   roadmap?: Prisma.XOR<Prisma.RoadmapScalarRelationFilter, Prisma.RoadmapWhereInput>
   tasks?: Prisma.TaskListRelationFilter
@@ -239,6 +251,7 @@ export type WeekOrderByWithRelationInput = {
   theme?: Prisma.SortOrder
   description?: Prisma.SortOrder
   estimatedHours?: Prisma.SortOrder
+  actualHours?: Prisma.SortOrder
   roadmapId?: Prisma.SortOrder
   roadmap?: Prisma.RoadmapOrderByWithRelationInput
   tasks?: Prisma.TaskOrderByRelationAggregateInput
@@ -255,6 +268,7 @@ export type WeekWhereUniqueInput = Prisma.AtLeast<{
   theme?: Prisma.StringFilter<"Week"> | string
   description?: Prisma.StringFilter<"Week"> | string
   estimatedHours?: Prisma.IntFilter<"Week"> | number
+  actualHours?: Prisma.IntFilter<"Week"> | number
   roadmapId?: Prisma.StringFilter<"Week"> | string
   roadmap?: Prisma.XOR<Prisma.RoadmapScalarRelationFilter, Prisma.RoadmapWhereInput>
   tasks?: Prisma.TaskListRelationFilter
@@ -267,6 +281,7 @@ export type WeekOrderByWithAggregationInput = {
   theme?: Prisma.SortOrder
   description?: Prisma.SortOrder
   estimatedHours?: Prisma.SortOrder
+  actualHours?: Prisma.SortOrder
   roadmapId?: Prisma.SortOrder
   _count?: Prisma.WeekCountOrderByAggregateInput
   _avg?: Prisma.WeekAvgOrderByAggregateInput
@@ -284,6 +299,7 @@ export type WeekScalarWhereWithAggregatesInput = {
   theme?: Prisma.StringWithAggregatesFilter<"Week"> | string
   description?: Prisma.StringWithAggregatesFilter<"Week"> | string
   estimatedHours?: Prisma.IntWithAggregatesFilter<"Week"> | number
+  actualHours?: Prisma.IntWithAggregatesFilter<"Week"> | number
   roadmapId?: Prisma.StringWithAggregatesFilter<"Week"> | string
 }
 
@@ -293,6 +309,7 @@ export type WeekCreateInput = {
   theme: string
   description: string
   estimatedHours?: number
+  actualHours?: number
   roadmap: Prisma.RoadmapCreateNestedOneWithoutWeeksInput
   tasks?: Prisma.TaskCreateNestedManyWithoutWeekInput
   resources?: Prisma.ResourceCreateNestedManyWithoutWeekInput
@@ -304,6 +321,7 @@ export type WeekUncheckedCreateInput = {
   theme: string
   description: string
   estimatedHours?: number
+  actualHours?: number
   roadmapId: string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutWeekInput
   resources?: Prisma.ResourceUncheckedCreateNestedManyWithoutWeekInput
@@ -315,6 +333,7 @@ export type WeekUpdateInput = {
   theme?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
+  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
   roadmap?: Prisma.RoadmapUpdateOneRequiredWithoutWeeksNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutWeekNestedInput
   resources?: Prisma.ResourceUpdateManyWithoutWeekNestedInput
@@ -326,6 +345,7 @@ export type WeekUncheckedUpdateInput = {
   theme?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
+  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
   roadmapId?: Prisma.StringFieldUpdateOperationsInput | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutWeekNestedInput
   resources?: Prisma.ResourceUncheckedUpdateManyWithoutWeekNestedInput
@@ -337,6 +357,7 @@ export type WeekCreateManyInput = {
   theme: string
   description: string
   estimatedHours?: number
+  actualHours?: number
   roadmapId: string
 }
 
@@ -346,6 +367,7 @@ export type WeekUpdateManyMutationInput = {
   theme?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
+  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type WeekUncheckedUpdateManyInput = {
@@ -354,6 +376,7 @@ export type WeekUncheckedUpdateManyInput = {
   theme?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
+  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
   roadmapId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -379,12 +402,14 @@ export type WeekCountOrderByAggregateInput = {
   theme?: Prisma.SortOrder
   description?: Prisma.SortOrder
   estimatedHours?: Prisma.SortOrder
+  actualHours?: Prisma.SortOrder
   roadmapId?: Prisma.SortOrder
 }
 
 export type WeekAvgOrderByAggregateInput = {
   weekNumber?: Prisma.SortOrder
   estimatedHours?: Prisma.SortOrder
+  actualHours?: Prisma.SortOrder
 }
 
 export type WeekMaxOrderByAggregateInput = {
@@ -393,6 +418,7 @@ export type WeekMaxOrderByAggregateInput = {
   theme?: Prisma.SortOrder
   description?: Prisma.SortOrder
   estimatedHours?: Prisma.SortOrder
+  actualHours?: Prisma.SortOrder
   roadmapId?: Prisma.SortOrder
 }
 
@@ -402,12 +428,14 @@ export type WeekMinOrderByAggregateInput = {
   theme?: Prisma.SortOrder
   description?: Prisma.SortOrder
   estimatedHours?: Prisma.SortOrder
+  actualHours?: Prisma.SortOrder
   roadmapId?: Prisma.SortOrder
 }
 
 export type WeekSumOrderByAggregateInput = {
   weekNumber?: Prisma.SortOrder
   estimatedHours?: Prisma.SortOrder
+  actualHours?: Prisma.SortOrder
 }
 
 export type WeekScalarRelationFilter = {
@@ -457,14 +485,6 @@ export type WeekUncheckedUpdateManyWithoutRoadmapNestedInput = {
   deleteMany?: Prisma.WeekScalarWhereInput | Prisma.WeekScalarWhereInput[]
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type WeekCreateNestedOneWithoutTasksInput = {
   create?: Prisma.XOR<Prisma.WeekCreateWithoutTasksInput, Prisma.WeekUncheckedCreateWithoutTasksInput>
   connectOrCreate?: Prisma.WeekCreateOrConnectWithoutTasksInput
@@ -499,6 +519,7 @@ export type WeekCreateWithoutRoadmapInput = {
   theme: string
   description: string
   estimatedHours?: number
+  actualHours?: number
   tasks?: Prisma.TaskCreateNestedManyWithoutWeekInput
   resources?: Prisma.ResourceCreateNestedManyWithoutWeekInput
 }
@@ -509,6 +530,7 @@ export type WeekUncheckedCreateWithoutRoadmapInput = {
   theme: string
   description: string
   estimatedHours?: number
+  actualHours?: number
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutWeekInput
   resources?: Prisma.ResourceUncheckedCreateNestedManyWithoutWeekInput
 }
@@ -548,6 +570,7 @@ export type WeekScalarWhereInput = {
   theme?: Prisma.StringFilter<"Week"> | string
   description?: Prisma.StringFilter<"Week"> | string
   estimatedHours?: Prisma.IntFilter<"Week"> | number
+  actualHours?: Prisma.IntFilter<"Week"> | number
   roadmapId?: Prisma.StringFilter<"Week"> | string
 }
 
@@ -557,6 +580,7 @@ export type WeekCreateWithoutTasksInput = {
   theme: string
   description: string
   estimatedHours?: number
+  actualHours?: number
   roadmap: Prisma.RoadmapCreateNestedOneWithoutWeeksInput
   resources?: Prisma.ResourceCreateNestedManyWithoutWeekInput
 }
@@ -567,6 +591,7 @@ export type WeekUncheckedCreateWithoutTasksInput = {
   theme: string
   description: string
   estimatedHours?: number
+  actualHours?: number
   roadmapId: string
   resources?: Prisma.ResourceUncheckedCreateNestedManyWithoutWeekInput
 }
@@ -593,6 +618,7 @@ export type WeekUpdateWithoutTasksInput = {
   theme?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
+  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
   roadmap?: Prisma.RoadmapUpdateOneRequiredWithoutWeeksNestedInput
   resources?: Prisma.ResourceUpdateManyWithoutWeekNestedInput
 }
@@ -603,6 +629,7 @@ export type WeekUncheckedUpdateWithoutTasksInput = {
   theme?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
+  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
   roadmapId?: Prisma.StringFieldUpdateOperationsInput | string
   resources?: Prisma.ResourceUncheckedUpdateManyWithoutWeekNestedInput
 }
@@ -613,6 +640,7 @@ export type WeekCreateWithoutResourcesInput = {
   theme: string
   description: string
   estimatedHours?: number
+  actualHours?: number
   roadmap: Prisma.RoadmapCreateNestedOneWithoutWeeksInput
   tasks?: Prisma.TaskCreateNestedManyWithoutWeekInput
 }
@@ -623,6 +651,7 @@ export type WeekUncheckedCreateWithoutResourcesInput = {
   theme: string
   description: string
   estimatedHours?: number
+  actualHours?: number
   roadmapId: string
   tasks?: Prisma.TaskUncheckedCreateNestedManyWithoutWeekInput
 }
@@ -649,6 +678,7 @@ export type WeekUpdateWithoutResourcesInput = {
   theme?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
+  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
   roadmap?: Prisma.RoadmapUpdateOneRequiredWithoutWeeksNestedInput
   tasks?: Prisma.TaskUpdateManyWithoutWeekNestedInput
 }
@@ -659,6 +689,7 @@ export type WeekUncheckedUpdateWithoutResourcesInput = {
   theme?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
+  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
   roadmapId?: Prisma.StringFieldUpdateOperationsInput | string
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutWeekNestedInput
 }
@@ -669,6 +700,7 @@ export type WeekCreateManyRoadmapInput = {
   theme: string
   description: string
   estimatedHours?: number
+  actualHours?: number
 }
 
 export type WeekUpdateWithoutRoadmapInput = {
@@ -677,6 +709,7 @@ export type WeekUpdateWithoutRoadmapInput = {
   theme?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
+  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUpdateManyWithoutWeekNestedInput
   resources?: Prisma.ResourceUpdateManyWithoutWeekNestedInput
 }
@@ -687,6 +720,7 @@ export type WeekUncheckedUpdateWithoutRoadmapInput = {
   theme?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
+  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
   tasks?: Prisma.TaskUncheckedUpdateManyWithoutWeekNestedInput
   resources?: Prisma.ResourceUncheckedUpdateManyWithoutWeekNestedInput
 }
@@ -697,6 +731,7 @@ export type WeekUncheckedUpdateManyWithoutRoadmapInput = {
   theme?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
+  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -745,6 +780,7 @@ export type WeekSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   theme?: boolean
   description?: boolean
   estimatedHours?: boolean
+  actualHours?: boolean
   roadmapId?: boolean
   roadmap?: boolean | Prisma.RoadmapDefaultArgs<ExtArgs>
   tasks?: boolean | Prisma.Week$tasksArgs<ExtArgs>
@@ -760,10 +796,11 @@ export type WeekSelectScalar = {
   theme?: boolean
   description?: boolean
   estimatedHours?: boolean
+  actualHours?: boolean
   roadmapId?: boolean
 }
 
-export type WeekOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "weekNumber" | "theme" | "description" | "estimatedHours" | "roadmapId", ExtArgs["result"]["week"]>
+export type WeekOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "weekNumber" | "theme" | "description" | "estimatedHours" | "actualHours" | "roadmapId", ExtArgs["result"]["week"]>
 export type WeekInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   roadmap?: boolean | Prisma.RoadmapDefaultArgs<ExtArgs>
   tasks?: boolean | Prisma.Week$tasksArgs<ExtArgs>
@@ -784,6 +821,7 @@ export type $WeekPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     theme: string
     description: string
     estimatedHours: number
+    actualHours: number
     roadmapId: string
   }, ExtArgs["result"]["week"]>
   composites: {}
@@ -1162,6 +1200,7 @@ export interface WeekFieldRefs {
   readonly theme: Prisma.FieldRef<"Week", 'String'>
   readonly description: Prisma.FieldRef<"Week", 'String'>
   readonly estimatedHours: Prisma.FieldRef<"Week", 'Int'>
+  readonly actualHours: Prisma.FieldRef<"Week", 'Int'>
   readonly roadmapId: Prisma.FieldRef<"Week", 'String'>
 }
     

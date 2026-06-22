@@ -920,6 +920,8 @@ export const UserScalarFieldEnum = {
   bio: 'bio',
   provider: 'provider',
   providerId: 'providerId',
+  streak: 'streak',
+  lastActiveAt: 'lastActiveAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -931,6 +933,7 @@ export const RoadmapScalarFieldEnum = {
   id: 'id',
   title: 'title',
   goal: 'goal',
+  category: 'category',
   isPublic: 'isPublic',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -946,6 +949,7 @@ export const WeekScalarFieldEnum = {
   theme: 'theme',
   description: 'description',
   estimatedHours: 'estimatedHours',
+  actualHours: 'actualHours',
   roadmapId: 'roadmapId'
 } as const
 
@@ -956,6 +960,7 @@ export const TaskScalarFieldEnum = {
   id: 'id',
   title: 'title',
   completed: 'completed',
+  completedAt: 'completedAt',
   weekId: 'weekId'
 } as const
 
@@ -978,6 +983,7 @@ export const NoteScalarFieldEnum = {
   title: 'title',
   content: 'content',
   weekId: 'weekId',
+  taskId: 'taskId',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1030,6 +1036,7 @@ export const RoadmapOrderByRelevanceFieldEnum = {
   id: 'id',
   title: 'title',
   goal: 'goal',
+  category: 'category',
   userId: 'userId'
 } as const
 
@@ -1071,6 +1078,7 @@ export const NoteOrderByRelevanceFieldEnum = {
   title: 'title',
   content: 'content',
   weekId: 'weekId',
+  taskId: 'taskId',
   userId: 'userId'
 } as const
 
@@ -1100,6 +1108,13 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
 
 
 /**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -1110,13 +1125,6 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-/**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 

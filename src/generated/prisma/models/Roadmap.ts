@@ -28,6 +28,7 @@ export type RoadmapMinAggregateOutputType = {
   id: string | null
   title: string | null
   goal: string | null
+  category: string | null
   isPublic: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -38,6 +39,7 @@ export type RoadmapMaxAggregateOutputType = {
   id: string | null
   title: string | null
   goal: string | null
+  category: string | null
   isPublic: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -48,6 +50,7 @@ export type RoadmapCountAggregateOutputType = {
   id: number
   title: number
   goal: number
+  category: number
   isPublic: number
   createdAt: number
   updatedAt: number
@@ -60,6 +63,7 @@ export type RoadmapMinAggregateInputType = {
   id?: true
   title?: true
   goal?: true
+  category?: true
   isPublic?: true
   createdAt?: true
   updatedAt?: true
@@ -70,6 +74,7 @@ export type RoadmapMaxAggregateInputType = {
   id?: true
   title?: true
   goal?: true
+  category?: true
   isPublic?: true
   createdAt?: true
   updatedAt?: true
@@ -80,6 +85,7 @@ export type RoadmapCountAggregateInputType = {
   id?: true
   title?: true
   goal?: true
+  category?: true
   isPublic?: true
   createdAt?: true
   updatedAt?: true
@@ -163,6 +169,7 @@ export type RoadmapGroupByOutputType = {
   id: string
   title: string
   goal: string
+  category: string
   isPublic: boolean
   createdAt: Date
   updatedAt: Date
@@ -194,6 +201,7 @@ export type RoadmapWhereInput = {
   id?: Prisma.StringFilter<"Roadmap"> | string
   title?: Prisma.StringFilter<"Roadmap"> | string
   goal?: Prisma.StringFilter<"Roadmap"> | string
+  category?: Prisma.StringFilter<"Roadmap"> | string
   isPublic?: Prisma.BoolFilter<"Roadmap"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Roadmap"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Roadmap"> | Date | string
@@ -207,6 +215,7 @@ export type RoadmapOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   goal?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -224,6 +233,7 @@ export type RoadmapWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.RoadmapWhereInput | Prisma.RoadmapWhereInput[]
   title?: Prisma.StringFilter<"Roadmap"> | string
   goal?: Prisma.StringFilter<"Roadmap"> | string
+  category?: Prisma.StringFilter<"Roadmap"> | string
   isPublic?: Prisma.BoolFilter<"Roadmap"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Roadmap"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Roadmap"> | Date | string
@@ -237,6 +247,7 @@ export type RoadmapOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   goal?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -253,6 +264,7 @@ export type RoadmapScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Roadmap"> | string
   title?: Prisma.StringWithAggregatesFilter<"Roadmap"> | string
   goal?: Prisma.StringWithAggregatesFilter<"Roadmap"> | string
+  category?: Prisma.StringWithAggregatesFilter<"Roadmap"> | string
   isPublic?: Prisma.BoolWithAggregatesFilter<"Roadmap"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Roadmap"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Roadmap"> | Date | string
@@ -263,6 +275,7 @@ export type RoadmapCreateInput = {
   id?: string
   title: string
   goal: string
+  category?: string
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -275,6 +288,7 @@ export type RoadmapUncheckedCreateInput = {
   id?: string
   title: string
   goal: string
+  category?: string
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -287,6 +301,7 @@ export type RoadmapUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   goal?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -299,6 +314,7 @@ export type RoadmapUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   goal?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -311,6 +327,7 @@ export type RoadmapCreateManyInput = {
   id?: string
   title: string
   goal: string
+  category?: string
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -321,6 +338,7 @@ export type RoadmapUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   goal?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -330,6 +348,7 @@ export type RoadmapUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   goal?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -356,6 +375,7 @@ export type RoadmapCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   goal?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -366,6 +386,7 @@ export type RoadmapMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   goal?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -376,6 +397,7 @@ export type RoadmapMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   goal?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -465,6 +487,7 @@ export type RoadmapCreateWithoutUserInput = {
   id?: string
   title: string
   goal: string
+  category?: string
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -476,6 +499,7 @@ export type RoadmapUncheckedCreateWithoutUserInput = {
   id?: string
   title: string
   goal: string
+  category?: string
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -516,6 +540,7 @@ export type RoadmapScalarWhereInput = {
   id?: Prisma.StringFilter<"Roadmap"> | string
   title?: Prisma.StringFilter<"Roadmap"> | string
   goal?: Prisma.StringFilter<"Roadmap"> | string
+  category?: Prisma.StringFilter<"Roadmap"> | string
   isPublic?: Prisma.BoolFilter<"Roadmap"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Roadmap"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Roadmap"> | Date | string
@@ -526,6 +551,7 @@ export type RoadmapCreateWithoutWeeksInput = {
   id?: string
   title: string
   goal: string
+  category?: string
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -537,6 +563,7 @@ export type RoadmapUncheckedCreateWithoutWeeksInput = {
   id?: string
   title: string
   goal: string
+  category?: string
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -564,6 +591,7 @@ export type RoadmapUpdateWithoutWeeksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   goal?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -575,6 +603,7 @@ export type RoadmapUncheckedUpdateWithoutWeeksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   goal?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -586,6 +615,7 @@ export type RoadmapCreateWithoutLikesInput = {
   id?: string
   title: string
   goal: string
+  category?: string
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -597,6 +627,7 @@ export type RoadmapUncheckedCreateWithoutLikesInput = {
   id?: string
   title: string
   goal: string
+  category?: string
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -624,6 +655,7 @@ export type RoadmapUpdateWithoutLikesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   goal?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -635,6 +667,7 @@ export type RoadmapUncheckedUpdateWithoutLikesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   goal?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -646,6 +679,7 @@ export type RoadmapCreateManyUserInput = {
   id?: string
   title: string
   goal: string
+  category?: string
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -655,6 +689,7 @@ export type RoadmapUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   goal?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -666,6 +701,7 @@ export type RoadmapUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   goal?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -677,6 +713,7 @@ export type RoadmapUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   goal?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.StringFieldUpdateOperationsInput | string
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -726,6 +763,7 @@ export type RoadmapSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   title?: boolean
   goal?: boolean
+  category?: boolean
   isPublic?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -742,13 +780,14 @@ export type RoadmapSelectScalar = {
   id?: boolean
   title?: boolean
   goal?: boolean
+  category?: boolean
   isPublic?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
 }
 
-export type RoadmapOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "goal" | "isPublic" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["roadmap"]>
+export type RoadmapOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "goal" | "category" | "isPublic" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["roadmap"]>
 export type RoadmapInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   weeks?: boolean | Prisma.Roadmap$weeksArgs<ExtArgs>
@@ -767,6 +806,7 @@ export type $RoadmapPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: string
     title: string
     goal: string
+    category: string
     isPublic: boolean
     createdAt: Date
     updatedAt: Date
@@ -1146,6 +1186,7 @@ export interface RoadmapFieldRefs {
   readonly id: Prisma.FieldRef<"Roadmap", 'String'>
   readonly title: Prisma.FieldRef<"Roadmap", 'String'>
   readonly goal: Prisma.FieldRef<"Roadmap", 'String'>
+  readonly category: Prisma.FieldRef<"Roadmap", 'String'>
   readonly isPublic: Prisma.FieldRef<"Roadmap", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Roadmap", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Roadmap", 'DateTime'>
