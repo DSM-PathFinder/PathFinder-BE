@@ -5,9 +5,12 @@ import { PrismaService } from '../prisma/prisma.service';
 export class CommunityService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findPublic() {
+  async findPublic(category?: string) {
     return this.prisma.roadmap.findMany({
-      where: { isPublic: true },
+      where: {
+        isPublic: true,
+        ...(category && category !== 'All' ? { category } : {}),
+      },
       include: {
         user: { select: { id: true, name: true, plan: true } },
         weeks: {
@@ -34,9 +37,5 @@ export class CommunityService {
       await this.prisma.like.create({ data: { userId, roadmapId } });
       return { liked: true };
     }
-  }
-
-  async getLikeCount(roadmapId: string) {
-    return this.prisma.like.count({ where: { roadmapId } });
   }
 }

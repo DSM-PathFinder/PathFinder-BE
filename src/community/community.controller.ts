@@ -15,8 +15,8 @@ export class CommunityController {
   constructor(private readonly communityService: CommunityService) {}
 
   @Get()
-  findPublic() {
-    return this.communityService.findPublic();
+  findPublic(@Query('category') category?: string) {
+    return this.communityService.findPublic(category);
   }
 
   @UseGuards(AuthGuard('jwt'))
