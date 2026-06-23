@@ -1,4 +1,12 @@
-import { Controller, Get, UseGuards, Request, Res } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  UseGuards,
+  Request,
+  Res,
+  Patch,
+  Body,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
@@ -39,5 +47,14 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   me(@Request() req: any) {
     return this.authService.getProfile(req.user);
+  }
+
+  @Patch('profile')
+  @UseGuards(AuthGuard('jwt'))
+  updateProfile(
+    @Request() req: any,
+    @Body() body: { name?: string; bio?: string },
+  ) {
+    return this.authService.updateProfile(req.user.id, body);
   }
 }

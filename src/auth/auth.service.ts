@@ -40,4 +40,8 @@ export class AuthService {
     const { password, ...rest } = user;
     return rest;
   }
+
+  async updateProfile(userId: string, data: { name?: string; bio?: string }) {
+    return this.usersService.update(userId, data);
+  }
 }
